@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ashish Raj | Full-Stack Django Developer</title>
+  <meta name="description"
+        content="Ashish Raj's developer portfolio showcasing Python, Django, web development projects, technical skills and education.">
+  <meta name="theme-color" content="#06121e">
+
+  <script>
+    tailwindConfig = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            // नए कलर्स (New Modern Emerald/Cyan Theme)
+            primary: "#10b981",
+            accent: "#06b6d4",
+            darkBg: "#06121e",
+            cardBg: "#0b1d2d"
+          },
+          fontFamily: {
+            // नए फ़ॉन्ट्स (Poppins और Fira Code)
+            sans: ["Poppins", "sans-serif"],
+            mono: ["Fira Code", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- गूगल फ़ॉन्ट (Poppins & Fira Code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #06121e;
+      --surface: #0b1d2d;
+      --text: #f0fdf4;
+      --muted: #94a3b8;
+      --border: rgba(16, 185, 129, .15);
+    }
+
+    html.light {
+      color-scheme: light;
+      --background: #f0fdfa;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: rgba(16, 185, 129, .25);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      transition: background .3s, color .3s;
+    }
+
+    .surface {
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .muted { color: var(--muted); }
+
+    /* नया ग्रेडिएंट कलर सेट */
+    .gradient-text {
+      background: linear-gradient(110deg, #10b981, #06b6d4, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(120deg, #059669, #0284c7);
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    .glass {
+      background: color-mix(in srgb, var(--surface) 78%, transparent);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(16, 185, 129, .55);
+      box-shadow: 0 20px 50px rgba(16, 185, 129, .12);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skill-fill {
+      width: 0;
+      transition: width 1.2s ease;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 28px;
+      border-left: 1px solid var(--border);
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      top: 7px;
+      left: -6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 15px rgba(16, 185, 129, .6);
+    }
+
+    #backToTop {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: .25s;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    html.light .nav-link:hover { color: #059669; }
+    html.light .hero-glow { opacity: .12; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <header class="fixed top-0 inset-x-0 z-50 glass">
+    <nav class="max-w-7xl mx-auto px-5 md:px-8 h-[76px]
+                flex items-center justify-between">
+      <a href="#home" class="text-xl font-extrabold tracking-tight">
+        Ashish<span class="text-emerald-400">.</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <a class="nav-link muted hover:text-emerald-400 transition" href="#home">Home</a>
+        <a class="nav-link muted hover:text-emerald-400 transition" href="#about">About</a>
+        <a class="nav-link muted hover:text-emerald-400 transition" href="#skills">Skills</a>
+        <a class="nav-link muted hover:text-emerald-400 transition" href="#projects">Projects</a>
+        <a class="nav-link muted hover:text-emerald-400 transition" href="#education">Education</a>
+        <a class="gradient-bg text-white px-5 py-2.5 rounded-xl hover:opacity-90 transition"
+           href="#contact">Let's Talk</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" aria-label="Toggle color theme"
+                class="surface p-2.5 rounded-xl hover:border-emerald-400 transition">
+          <i data-lucide="sun-moon" class="w-5 h-5"></i>
+        </button>
+
+        <button id="menuToggle" aria-label="Open navigation menu"
+                aria-expanded="false"
+                class="md:hidden surface p-2.5 rounded-xl">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobileMenu" class="hidden md:hidden px-5 pb-5 space-y-1">
+      <a class="mobile-link block p-3 rounded-lg hover:bg-emerald-500/10" href="#home">Home</a>
+      <a class="mobile-link block p-3 rounded-lg hover:bg-emerald-500/10" href="#about">About</a>
+      <a class="mobile-link block p-3 rounded-lg hover:bg-emerald-500/10" href="#skills">Skills</a>
+      <a class="mobile-link block p-3 rounded-lg hover:bg-emerald-500/10" href="#projects">Projects</a>
+      <a class="mobile-link block p-3 rounded-lg hover:bg-emerald-500/10" href="#education">Education</a>
+      <a class="mobile-link block p-3 rounded-lg hover:bg-emerald-500/10" href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
+      <div class="hero-glow bg-emerald-500 top-28 -left-20"></div>
+      <div class="hero-glow bg-cyan-500 bottom-10 right-0"></div>
+
+      <div class="max-w-7xl mx-auto px-5 md:px-8 pt-32 pb-20
+                  grid lg:grid-cols-[1.2fr_.8fr] gap-16 items-center relative z-10">
+
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 rounded-full
+                      border border-emerald-400/30 bg-emerald-400/10
+                      px-4 py-2 text-sm text-emerald-400 mb-8">
+            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+            Computer Science Graduate
+          </div>
+
+          <p class="muted font-medium mb-4">HELLO, WELCOME TO MY PORTFOLIO</p>
+
+          <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
+            I'm Ashish<br>
+            <span class="gradient-text">Raj.</span>
+          </h1>
+
+          <h2 class="text-xl md:text-2xl font-semibold mt-6">
+            <span class="muted">I'm a </span>
+            <span id="typingText" class="text-emerald-400 font-mono">Django Developer</span>
+            <span class="text-emerald-400 animate-pulse">|</span>
+          </h2>
+
+          <p class="muted max-w-xl leading-8 mt-6">
+            A passionate Computer Science and Engineering graduate focused on
+            Python, Django, database-driven applications, and building
+            useful, responsive web experiences.
+          </p>
+
+          <div class="flex flex-wrap gap-4 mt-9">
+            <a href="#projects"
+               class="gradient-bg text-white px-6 py-3.5 rounded-xl
+                      font-semibold inline-flex items-center gap-2 hover:opacity-90 transition shadow-lg shadow-emerald-500/20">
+              Explore Projects <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+            </a>
+
+            <a href="#contact"
+               class="surface px-6 py-3.5 rounded-xl font-semibold
+                      inline-flex items-center gap-2 hover:border-emerald-400 transition">
+              Contact Me <i data-lucide="mail" class="w-5 h-5"></i>
+            </a>
+          </div>
+
+          <div class="flex items-center gap-4 mt-9">
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+               aria-label="GitHub profile"
+               class="surface p-3 rounded-xl hover:text-emerald-400 transition">
+              <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"
+               aria-label="LinkedIn profile"
+               class="surface p-3 rounded-xl hover:text-emerald-400 transition">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <span class="text-sm muted">Greater Noida, India</span>
+          </div>
+        </div>
+
+        <!-- Developer illustration -->
+        <div class="reveal flex justify-center">
+          <div class="relative w-full max-w-md">
+            <div class="absolute inset-5 rounded-[2rem] gradient-bg blur-3xl opacity-25"></div>
+
+            <div class="surface rounded-3xl p-5 md:p-7 relative shadow-2xl">
+              <div class="flex items-center gap-2 border-b pb-5"
+                   style="border-color:var(--border)">
+                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                <span class="ml-auto text-xs muted font-mono">developer.py</span>
+              </div>
+
+              <div class="font-mono text-sm md:text-base leading-9 py-6 overflow-x-auto">
+                <p><span class="text-cyan-400">class</span>
+                  <span class="text-emerald-400"> Developer</span>:</p>
+                <p class="pl-5"><span class="text-cyan-400">def</span>
+                  <span class="text-amber-300">__init__</span>(self):</p>
+                <p class="pl-10">self.name = <span class="text-emerald-300">"Ashish Raj"</span></p>
+                <p class="pl-10">self.role = <span class="text-emerald-300">"Web Developer"</span></p>
+                <p class="pl-10">self.stack = [</p>
+                <p class="pl-14 text-emerald-300">"Python", "Django",</p>
+                <p class="pl-14 text-emerald-300">"HTML", "CSS", "MySQL"</p>
+                <p class="pl-10">]</p>
+                <p class="pl-5 mt-2"><span class="text-cyan-400">def</span>
+                  <span class="text-amber-300">build</span>(self):</p>
+                <p class="pl-10 text-emerald-300">return "Ideas into reality!"</p>
+              </div>
+
+              <div class="grid grid-cols-3 gap-3 border-t pt-5"
+                   style="border-color:var(--border)">
+                <div class="text-center">
+                  <i data-lucide="code-2" class="mx-auto text-emerald-400 w-6 h-6"></i>
+                  <p class="text-xs muted mt-2">Development</p>
+                </div>
+                <div class="text-center">
+                  <i data-lucide="database" class="mx-auto text-cyan-400 w-6 h-6"></i>
+                  <p class="text-xs muted mt-2">Databases</p>
+                </div>
+                <div class="text-center">
+                  <i data-lucide="layers" class="mx-auto text-teal-400 w-6 h-6"></i>
+                  <p class="text-xs muted mt-2">Problem Solving</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute -left-4 top-16 glass rounded-xl p-3 shadow-xl hidden sm:block">
+              <span class="text-sm font-semibold">Python Developer</span>
+              <span class="block text-xs muted mt-1">Building useful solutions</span>
+            </div>
+
+            <div class="absolute -right-3 bottom-12 glass rounded-xl p-3 shadow-xl hidden sm:block">
+              <span class="text-sm font-semibold text-emerald-400">Always Learning</span>
+              <span class="block text-xs muted mt-1">Code · Learn · Improve</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 border-t" style="border-color:var(--border)">
+      <div class="max-w-7xl mx-auto px-5 md:px-8">
+        <div class="reveal mb-12">
+          <p class="text-emerald-400 uppercase tracking-[.2em] text-sm font-bold">Discover My Story</p>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-3">About Me</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-[1.2fr_.8fr] gap-8">
+          <div class="surface rounded-2xl p-7 md:p-9 reveal">
+            <h3 class="text-2xl font-bold mb-5">Turning ideas into applications</h3>
+            <p class="muted leading-8">
+              I am a Computer Science and Engineering graduate with a
+              strong interest in full-stack development and backend
+              engineering. My learning focuses on Python, Django,
+              HTML, CSS, Bootstrap, and MySQL.
+            </p>
+            <p class="muted leading-8 mt-4">
+              Through projects such as NEWS INDIA, FAVCART, and MYMAIL,
+              I have explored dynamic content, database integration,
+              and responsive interface design. I enjoy learning new
+              technologies, solving problems, and improving my development skills.
+            </p>
+            <a href="#education"
+               class="inline-flex items-center gap-2 text-emerald-400 mt-7 font-semibold">
+              My education <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4 reveal">
+            <div class="surface rounded-2xl p-6">
+              <i data-lucide="code-2" class="text-emerald-400 w-8 h-8"></i>
+              <h3 class="font-bold mt-5">Web Development</h3>
+              <p class="muted text-sm mt-2 leading-6">Building responsive and functional web applications.</p>
+            </div>
+            <div class="surface rounded-2xl p-6">
+              <i data-lucide="database" class="text-cyan-400 w-8 h-8"></i>
+              <h3 class="font-bold mt-5">Backend & Data</h3>
+              <p class="muted text-sm mt-2 leading-6">Working with Django, Python, and MySQL.</p>
+            </div>
+            <div class="surface rounded-2xl p-6">
+              <i data-lucide="lightbulb" class="text-amber-400 w-8 h-8"></i>
+              <h3 class="font-bold mt-5">Problem Solving</h3>
+              <p class="muted text-sm mt-2 leading-6">Breaking down challenges into practical solutions.</p>
+            </div>
+            <div class="surface rounded-2xl p-6">
+              <i data-lucide="book-open" class="text-teal-400 w-8 h-8"></i>
+              <h3 class="font-bold mt-5">Continuous Learning</h3>
+              <p class="muted text-sm mt-2 leading-6">Exploring better tools and development practices.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 border-t"
+             style="border-color:var(--border);background:color-mix(in srgb,var(--surface) 45%,transparent)">
+      <div class="max-w-7xl mx-auto px-5 md:px-8">
+        <div class="reveal text-center mb-14">
+          <p class="text-emerald-400 uppercase tracking-[.2em] text-sm font-bold">My Toolkit</p>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-3">Technical Skills</h2>
+          <p class="muted mt-4">Technologies I use and continue to develop my skills in.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="surface p-7 rounded-2xl reveal">
+            <div class="flex items-center gap-3 mb-7">
+              <div class="bg-emerald-500/10 text-emerald-400 p-3 rounded-xl">
+                <i data-lucide="terminal" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold">Programming Languages</h3>
+            </div>
+
+            <div class="space-y-6">
+              <div>
+                <div class="flex justify-between mb-2 text-sm font-mono">
+                  <span>Python</span><span class="muted">Core skill</span>
+                </div>
+                <div class="h-2 bg-slate-500/15 rounded-full overflow-hidden">
+                  <div class="skill-fill h-full gradient-bg rounded-full" data-width="85%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2 text-sm font-mono">
+                  <span>C Programming</span><span class="muted">Fundamentals</span>
+                </div>
+                <div class="h-2 bg-slate-500/15 rounded-full overflow-hidden">
+                  <div class="skill-fill h-full gradient-bg rounded-full" data-width="65%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="surface p-7 rounded-2xl reveal">
+            <div class="flex items-center gap-3 mb-7">
+              <div class="bg-cyan-500/10 text-cyan-400 p-3 rounded-xl">
+                <i data-lucide="layout" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold">Web Technologies</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 font-mono">
+              <span class="surface px-4 py-2 rounded-lg text-sm">HTML5</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">CSS3</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Bootstrap</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Django</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Responsive Design</span>
+            </div>
+          </div>
+
+          <div class="surface p-7 rounded-2xl reveal">
+            <div class="flex items-center gap-3 mb-7">
+              <div class="bg-teal-500/10 text-teal-400 p-3 rounded-xl">
+                <i data-lucide="database" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold">Database & Tools</h3>
+            </div>
+            <div class="flex flex-wrap gap-3 font-mono">
+              <span class="surface px-4 py-2 rounded-lg text-sm">MySQL</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Git</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">GitHub</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">VS Code</span>
+            </div>
+          </div>
+
+          <div class="surface p-7 rounded-2xl reveal">
+            <div class="flex items-center gap-3 mb-7">
+              <div class="bg-amber-500/10 text-amber-400 p-3 rounded-xl">
+                <i data-lucide="users" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold">Professional Skills</h3>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <span class="surface px-4 py-2 rounded-lg text-sm">Communication</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Problem Solving</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Teamwork</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Time Management</span>
+              <span class="surface px-4 py-2 rounded-lg text-sm">Adaptability</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 border-t" style="border-color:var(--border)">
+      <div class="max-w-7xl mx-auto px-5 md:px-8">
+        <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-5 mb-14">
+          <div>
+            <p class="text-emerald-400 uppercase tracking-[.2em] text-sm font-bold">Selected Work</p>
+            <h2 class="text-3xl md:text-5xl font-extrabold mt-3">Featured Projects</h2>
+            <p class="muted mt-4">A selection of projects demonstrating my development experience.</p>
+          </div>
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 text-emerald-400 font-semibold">
+            Explore GitHub <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <article class="surface project-card rounded-2xl overflow-hidden reveal flex flex-col">
+            <div class="h-44 bg-gradient-to-br from-emerald-600/30 via-teal-500/10 to-transparent
+                        flex items-center justify-center">
+              <div class="rounded-2xl p-5 bg-emerald-500/10 border border-emerald-400/20">
+                <i data-lucide="newspaper" class="w-14 h-14 text-emerald-400"></i>
+              </div>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <span class="text-xs uppercase tracking-widest text-emerald-400 font-bold">Project 01</span>
+              <h3 class="text-xl font-bold mt-3">NEWS INDIA</h3>
+              <p class="muted text-sm leading-7 mt-3 flex-1">
+                Developed a web-based news platform using Python and Django,
+                with dynamic content and database integration.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-5 font-mono">
+                <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-full">Python</span>
+                <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-full">Django</span>
+                <span class="text-xs bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-full">Database</span>
+              </div>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                 class="mt-6 pt-5 border-t flex items-center justify-between text-sm font-semibold"
+                 style="border-color:var(--border)">
+                View source <i data-lucide="arrow-up-right" class="w-4 h-4 text-emerald-400"></i>
+              </a>
+            </div>
+          </article>
+
+          <article class="surface project-card rounded-2xl overflow-hidden reveal flex flex-col">
+            <div class="h-44 bg-gradient-to-br from-cyan-600/30 via-blue-500/10 to-transparent
+                        flex items-center justify-center">
+              <div class="rounded-2xl p-5 bg-cyan-500/10 border border-cyan-400/20">
+                <i data-lucide="shopping-bag" class="w-14 h-14 text-cyan-400"></i>
+              </div>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Project 02</span>
+              <h3 class="text-xl font-bold mt-3">FAVCART</h3>
+              <p class="muted text-sm leading-7 mt-3 flex-1">
+                Built an e-commerce-style application featuring favorite
+                product management, user interaction, and MySQL integration.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-5 font-mono">
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1.5 rounded-full">Python</span>
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1.5 rounded-full">Django</span>
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1.5 rounded-full">MySQL</span>
+              </div>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                 class="mt-6 pt-5 border-t flex items-center justify-between text-sm font-semibold"
+                 style="border-color:var(--border)">
+                View source <i data-lucide="arrow-up-right" class="w-4 h-4 text-cyan-400"></i>
+              </a>
+            </div>
+          </article>
+
+          <article class="surface project-card rounded-2xl overflow-hidden reveal flex flex-col">
+            <div class="h-44 bg-gradient-to-br from-teal-600/30 via-emerald-500/10 to-transparent
+                        flex items-center justify-center">
+              <div class="rounded-2xl p-5 bg-teal-500/10 border border-teal-400/20">
+                <i data-lucide="mail" class="w-14 h-14 text-teal-400"></i>
+              </div>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <span class="text-xs uppercase tracking-widest text-teal-400 font-bold">Project 03</span>
+              <h3 class="text-xl font-bold mt-3">MYMAIL</h3>
+              <p class="muted text-sm leading-7 mt-3 flex-1">
+                Designed a responsive email interface with HTML and CSS,
+                focusing on layout, usability, and frontend design principles.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-5 font-mono">
+                <span class="text-xs bg-teal-500/10 text-teal-400 px-3 py-1.5 rounded-full">HTML</span>
+                <span class="text-xs bg-teal-500/10 text-teal-400 px-3 py-1.5 rounded-full">CSS</span>
+                <span class="text-xs bg-teal-500/10 text-teal-400 px-3 py-1.5 rounded-full">UI Design</span>
+              </div>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                 class="mt-6 pt-5 border-t flex items-center justify-between text-sm font-semibold"
+                 style="border-color:var(--border)">
+                View source <i data-lucide="arrow-up-right" class="w-4 h-4 text-teal-400"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 border-t"
+             style="border-color:var(--border);background:color-mix(in srgb,var(--surface) 45%,transparent)">
+      <div class="max-w-7xl mx-auto px-5 md:px-8">
+        <div class="reveal mb-14">
+          <p class="text-emerald-400 uppercase tracking-[.2em] text-sm font-bold">My Background</p>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-3">Education & Training</h2>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-9">
+          <div class="timeline-item reveal">
+            <div class="surface p-6 md:p-8 rounded-2xl">
+              <span class="text-emerald-400 text-sm font-semibold font-mono">2023 – 2026</span>
+              <h3 class="text-xl font-bold mt-3">B.Tech in Computer Science and Engineering</h3>
+              <p class="muted mt-2">Mangalmay Institute of Technology and Engineering</p>
+              <p class="muted text-sm mt-1">Greater Noida, Uttar Pradesh</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="surface p-6 md:p-8 rounded-2xl">
+              <span class="text-emerald-400 text-sm font-semibold font-mono">2020 – 2023</span>
+              <h3 class="text-xl font-bold mt-3">Diploma in Computer Science and Engineering</h3>
+              <p class="muted mt-2">Ambition Institute of Technology</p>
+              <p class="muted text-sm mt-1">Varanasi, Uttar Pradesh</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="surface p-6 md:p-8 rounded-2xl">
+              <span class="text-emerald-400 text-sm font-semibold font-mono">2 Months</span>
+              <h3 class="text-xl font-bold mt-3">Vocational Training</h3>
+              <p class="muted mt-2">TechPile Technology Pvt. Ltd.</p>
+              <p class="muted text-sm mt-1">Lucknow, Uttar Pradesh</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 border-t" style="border-color:var(--border)">
+      <div class="max-w-5xl mx-auto px-5 md:px-8">
+        <div class="reveal text-center mb-12">
+          <p class="text-emerald-400 uppercase tracking-[.2em] text-sm font-bold">Get In Touch</p>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-3">Let's Work Together</h2>
+          <p class="muted mt-5 max-w-2xl mx-auto leading-7">
+            Interested in discussing an opportunity, collaborating on a project,
+            or connecting about web development? Feel free to reach out.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-4 reveal">
+            <a href="mailto:ashishrajkeshri@gmail.com"
+               class="surface p-5 rounded-2xl flex items-center gap-4 hover:border-emerald-400 transition">
+              <div class="p-3 bg-emerald-500/10 rounded-xl text-emerald-400">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm muted">Email me</p>
+                <p class="font-semibold break-all">ashishrajkeshri@gmail.com</p>
+              </div>
+            </a>
+
+            <div class="surface p-5 rounded-2xl flex items-center gap-4">
+              <div class="p-3 bg-cyan-500/10 rounded-xl text-cyan-400">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <p class="text-sm muted">Location</p>
+                <p class="font-semibold">Greater Noida, Uttar Pradesh</p>
+              </div>
+            </div>
+
+            <div class="surface p-5 rounded-2xl flex items-center gap-4">
+              <div class="p-3 bg-teal-500/10 rounded-xl text-teal-400">
+                <i data-lucide="phone" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <p class="text-sm muted">Phone</p>
+                <a href="tel:+917970609005" class="font-semibold hover:text-emerald-400 transition">
+                  +91 7970609005
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <form id="contactForm" class="surface p-6 md:p-8 rounded-2xl reveal">
+            <h3 class="text-xl font-bold mb-6">Send a Message</h3>
+
+            <label for="visitorName" class="text-sm font-medium block mb-2">Your Name</label>
+            <input id="visitorName" name="name" required maxlength="100"
+                   autocomplete="name"
+                   class="w-full surface rounded-xl px-4 py-3 mb-5 outline-none
+                          focus:border-emerald-400 transition"
+                   placeholder="Enter your name">
+
+            <label for="visitorEmail" class="text-sm font-medium block mb-2">Your Email</label>
+            <input id="visitorEmail" name="email" type="email" required maxlength="150"
+                   autocomplete="email"
+                   class="w-full surface rounded-xl px-4 py-3 mb-5 outline-none
+                          focus:border-emerald-400 transition"
+                   placeholder="you@example.com">
+
+            <label for="visitorMessage" class="text-sm font-medium block mb-2">Message</label>
+            <textarea id="visitorMessage" name="message" required maxlength="3000" rows="4"
+                      class="w-full surface rounded-xl px-4 py-3 mb-5 outline-none
+                             focus:border-emerald-400 transition resize-y"
+                      placeholder="Tell me about your opportunity or project..."></textarea>
+
+            <button type="submit"
+                    class="gradient-bg text-white w-full py-3.5 rounded-xl
+                           font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition">
+              Open Email App <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+
+            <p class="muted text-xs mt-4 leading-5">
+              This form opens your email application. It does not send or store messages
+              on a server.
+            </p>
+            <p id="formStatus" role="status" class="text-sm text-emerald-400 mt-3"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t py-8" style="border-color:var(--border)">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 flex flex-col sm:flex-row
+                items-center justify-between gap-4">
+      <a href="#home" class="text-lg font-extrabold">Ashish<span class="text-emerald-400">.</span></a>
+      <p class="muted text-sm text-center">
+        © <span id="year"></span> Ashish Raj. All rights reserved.
+      </p>
+      <a href="#home" class="text-sm text-emerald-400 hover:underline">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"
+          class="fixed bottom-6 right-6 z-40 gradient-bg text-white p-3 rounded-xl shadow-lg">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    const themeToggle = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("ashish-theme");
+
+    if (savedTheme === "light") {
+      document.documentElement.classList.add("light");
+    }
+
+    function updateThemeIcon() {
+      const light = document.documentElement.classList.contains("light");
+      themeToggle.innerHTML = light
+        ? '<i data-lucide="moon" class="w-5 h-5"></i>'
+        : '<i data-lucide="sun" class="w-5 h-5"></i>';
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    updateThemeIcon();
+
+    themeToggle.addEventListener("click", () => {
+      document.documentElement.classList.toggle("light");
+      const theme = document.documentElement.classList.contains("light")
+        ? "light"
+        : "dark";
+
+      localStorage.setItem("ashish-theme", theme);
+      updateThemeIcon();
+    });
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpening = mobileMenu.classList.contains("hidden");
+      mobileMenu.classList.toggle("hidden");
+      menuToggle.setAttribute("aria-expanded", String(isOpening));
+      menuToggle.innerHTML = isOpening
+        ? '<i data-lucide="x" class="w-5 h-5"></i>'
+        : '<i data-lucide="menu" class="w-5 h-5"></i>';
+
+      if (window.lucide) lucide.createIcons();
+    });
+
+    document.querySelectorAll(".mobile-link").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.innerHTML = '<i data-lucide="menu" class="w-5 h-5"></i>';
+        if (window.lucide) lucide.createIcons();
+      });
+    });
+
+    const typingText = document.getElementById("typingText");
+    const roles = [
+      "Django Developer",
+      "Python Programmer",
+      "Web Developer",
+      "Problem Solver"
+    ];
+
+    let roleIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+
+    function typeRole() {
+      const currentRole = roles[roleIndex];
+
+      typingText.textContent = currentRole.substring(0, characterIndex);
+
+      if (!deleting) {
+        characterIndex++;
+
+        if (characterIndex > currentRole.length) {
+          deleting = true;
+          setTimeout(typeRole, 1300);
+          return;
+        }
+      } else {
+        characterIndex--;
+
+        if (characterIndex < 0) {
+          characterIndex = 0;
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+        }
+      }
+
+      setTimeout(typeRole, deleting ? 45 : 85);
+    }
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      typeRole();
+    } else {
+      typingText.textContent = roles[0];
+    }
+
+    const revealElements = document.querySelectorAll(".reveal");
+    const skillBars = document.querySelectorAll(".skill-fill");
+
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+
+            entry.target.querySelectorAll(".skill-fill").forEach(bar => {
+              bar.style.width = bar.dataset.width;
+            });
+
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach(element => revealObserver.observe(element));
+
+      skillBars.forEach(bar => {
+        if (!bar.closest(".reveal")) {
+          bar.style.width = bar.dataset.width;
+        }
+      });
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+      skillBars.forEach(bar => bar.style.width = bar.dataset.width);
+    }
+
+    const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 500);
+    }, { passive: true });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth"
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+
+      const name = document.getElementById("visitorName").value.trim();
+      const email = document.getElementById("visitorEmail").value.trim();
+      const message = document.getElementById("visitorMessage").value.trim();
+      const status = document.getElementById("formStatus");
+
+      if (!name || !email || !message) {
+        status.textContent = "Please complete all fields.";
+        return;
+      }
+
+      const subject = encodeURIComponent("Portfolio enquiry from " + name);
+      const body = encodeURIComponent(
+        "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message
+      );
+
+      status.textContent = "Opening your email application...";
+      window.location.href =
+        "mailto:ashishrajkeshri@gmail.com?subject=" + subject + "&body=" + body;
+    });
+  </script>
+</body>
+</html>
